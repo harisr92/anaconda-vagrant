@@ -37,16 +37,20 @@
   args:
     creates: "{{ anaconda_install_dir }}/bin/jupyter"
 
-- name: Anaconda | jupyter note run script
+- name: Anaconda | Create config dir
+  file:
+    path: "{{ config_dir }}"
+    state: directory
+
+- name: Anaconda | Config file
   template:
-    src: notebook.sh.j2
-    dest: /usr/local/bin/notebook
-    mode: "u=rwx,g=xr,o=rx"
+    src: jupyterlab_config.py.j2
+    dest: "{{ config_dir }}/jupyter_lab_config.py"
 
 - name: Anaconda | Jupyter notebook service file
   template:
-    src: notebook.service.j2
-    dest: /etc/systemd/system/jupyter-notebook.service
+    src: jupyterlab.service.j2
+    dest: /etc/systemd/system/jupyterlab.service
   notify:
-    - 'enable jupyter-notebook'
-    - 'restart jupyter-notebook'
+    - 'enable jupyterlab'
+    - 'restart jupyterlab'

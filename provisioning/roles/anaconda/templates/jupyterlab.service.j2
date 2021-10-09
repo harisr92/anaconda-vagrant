@@ -1,0 +1,16 @@
+[Unit]
+Description=Jupyterlab
+ConditionPathExists={{ notebook_path }}
+
+[Service]
+Type=simple
+PIDFile=/run/jupyter.pid
+ExecStart={{ anaconda_install_dir }}/bin/jupyter-lab
+User=vagrant
+Group=vagrant
+Restart=always
+RestartSec=10
+#KillMode=mixed
+
+[Install]
+WantedBy=multi-user.target

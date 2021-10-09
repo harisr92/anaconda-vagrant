@@ -25,9 +25,9 @@ Vagrant.configure('2') do |config|
     end
 
     web.trigger.after :up do |trigger|
-      trigger.name = 'Jupiter Notebook'
-      trigger.info = 'Start Jupiter Notebook service'
-      trigger.run_remote = { inline: 'systemctl start jupyter-notebook.service' }
+      trigger.name = 'JupiterLab'
+      trigger.info = 'Start JupiterLab service'
+      trigger.run_remote = { inline: 'systemctl start jupyterlab.service' }
     end
   end
 end

@@ -1,0 +1,71 @@
+# Configuration file for lab.
+#------------------------------------------------------------------------------
+
+## Set the Access-Control-Allow-Origin header
+#  
+#  Use '*' to allow any origin to access your server.
+#  
+#  Takes precedence over allow_origin_pat.
+#  Default: ''
+c.ServerApp.allow_origin = '*'
+
+## Allow requests where the Host header doesn't point to a local server
+#  
+#  By default, requests get a 403 forbidden response if the 'Host' header shows
+#  that the browser thinks it's on a non-local domain. Setting this option to
+#  True disables this check.
+#  
+#  This protects against 'DNS rebinding' attacks, where a remote web server
+#  serves you a page and then changes its DNS to send later requests to a local
+#  IP, bypassing same-origin checks.
+#  
+#  Local IP addresses (such as 127.0.0.1 and ::1) are allowed as local, along
+#  with hostnames configured in local_hostnames.
+#  Default: False
+c.ServerApp.allow_remote_access = True
+
+## Whether to allow the user to run the server as root.
+#  Default: False
+c.ServerApp.allow_root = False
+
+## The IP address the Jupyter server will listen on.
+#  Default: 'localhost'
+c.ServerApp.ip = '0.0.0.0'
+
+## Hashed password to use for web authentication.
+#  
+#  To generate, type in a python/IPython shell:
+#  
+#    from jupyter_server.auth import passwd; passwd()
+#  
+#  The string should be of the form type:salt:hashed-password.
+#  Default: ''
+c.ServerApp.password = ''
+
+## The port the Jupyter server will listen on.
+#  Default: 8888
+c.ServerApp.port = 8888
+
+## The directory to use for notebooks and kernels.
+#  Default: ''
+c.ServerApp.root_dir = '{{ notebook_path }}'
+
+## Shut down the server after N seconds with no kernels or terminals running and
+#  no activity. This can be used together with culling idle kernels
+#  (MappingKernelManager.cull_idle_timeout) to shutdown the Jupyter server when
+#  it's not in use. This is not precisely timed: it may shut down up to a minute
+#  later. 0 (the default) disables this automatic shutdown.
+#  Default: 0
+c.ServerApp.shutdown_no_activity_timeout = 0
+
+## Token used for authenticating first-time connections to the server.
+#  
+#  When no password is enabled, the default is to generate a new, random token.
+#  
+#  Setting to an empty string disables authentication altogether, which is NOT
+#  RECOMMENDED.
+#  Default: '<generated>'
+c.ServerApp.token = 'jupiter-lab'
+
+c.ServerApp.open_broser = False
+c.ExtensionApp.open_browser = False

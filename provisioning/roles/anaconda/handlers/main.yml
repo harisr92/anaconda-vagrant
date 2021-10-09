@@ -2,13 +2,14 @@
 # handlers file for anaconda
 
 - name: Enable Jupyter
-  service:
-    name: jupyter-notebook
+  systemd:
+    name: jupyterlab
     enabled: yes
-  listen: "enable jupyter-notebook"
+  listen: "enable jupyterlab"
 
-- name: Restart Jupyter Notebook
-  service:
-    name: jupyter-notebook
+- name: Restart Jupyterlab
+  systemd:
+    name: jupyterlab
     state: restarted
-  listen: 'restart jupyter-notebook'
+    daemon_reload: yes
+  listen: 'restart jupyterlab'
