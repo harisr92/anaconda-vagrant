@@ -23,5 +23,11 @@ Vagrant.configure('2') do |config|
       ansible.become = true
       ansible.compatibility_mode = '2.0'
     end
+
+    web.trigger.after :up do |trigger|
+      trigger.name = 'Jupiter Notebook'
+      trigger.info = 'Start Jupiter Notebook service'
+      trigger.run_remote = { inline: 'systemctl start jupyter-notebook.service' }
+    end
   end
 end
