@@ -1,0 +1,44 @@
+---
+# tasks file for anaconda
+
+- name: Anaconda | check for installation of Anaconda
+  become: yes
+  stat:
+    path: '{{ anaconda_install_dir }}/bin/conda'
+  changed_when: false
+  register: anaconda_conda_binary
+
+- when: not anaconda_conda_binary.stat.exists
+  block:
+    - name: Anaconda | Download
+      get_url:
+        url: "https://repo.anaconda.com/archive/{{ anaconda_sh }}"
+        dest: "/vagrant/{{ anaconda_sh }}"
+        mode: '0755'
+        checksum: "{{ checksum }}"
+
+    - name: Anaconda | Install
+      command: bash /vagrant/{{ anaconda_sh }} -b -p {{ anaconda_install_dir }}
+      args:
+        creates: '{{ anaconda_install_dir }}'
+
+- name: Anaconda | link anaconda...
+  file:
+    src: '{{ anaconda_install_dir }}'
+    dest: '{{ anaconda_link_dir }}'
+    state: link
+
+- name: Anaconda | update conda pkgs...
+  when: anaconda_pkg_update
+  command: '{{ anaconda_link_dir }}/bin/conda update -y --all'
+
+- name: Anaconda | Install jupyter notebook
+  command: "{{ anaconda_install_dir }}/bin/conda install -y -c conda-forge notebook"
+  args:
+    creates: "{{ anaconda_install_dir }}/bin/jupyter"
+
+- name: Anaconda | jupyter note run script
+  template:
+    src: notebook.sh.j2
+    dest: /usr/local/bin/notebook
+    mode: "u=rwx,g=xr,o=rx"
