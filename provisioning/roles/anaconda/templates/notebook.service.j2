@@ -3,6 +3,9 @@
 
 [Unit]
 Description=Jupyter Notebook
+After=rc-local.service
+Before=getty.target
+IgnoreOnIsolate=yes
 
 [Service]
 Type=simple

@@ -1,6 +1,12 @@
 ---
 # handlers file for anaconda
 
+- name: Enable Jupyter
+  service:
+    name: jupyter-notebook
+    enabled: yes
+  listen: "enable jupyter-notebook"
+
 - name: Restart Jupyter Notebook
   service:
     name: jupyter-notebook
