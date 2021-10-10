@@ -2,6 +2,7 @@
 .idea
 *.log
 *.out
+.vagrant
 tmp/
 notebook/
 
